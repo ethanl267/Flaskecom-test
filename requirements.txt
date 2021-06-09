@@ -1,0 +1,7 @@
+flask
+flask_wtf
+flask_bcrypt
+werkzeug
+flask_login
+email_validator
+flask_sqlalchemy
