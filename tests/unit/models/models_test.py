@@ -49,3 +49,43 @@ class TestModels(TestCase):
         fake = 'password'
         user = bcrypt.check_password_hash(pw_hash, fake)
         self.assertFalse(user)
+
+    def test_can_purchase_method(self):
+        user = User(username='qwers', email_address='ethan@gmail.com', password_hash='772245', budget=5000).can_purchase(Item(
+            name='Phone', price=2000, barcode='234367', description='Model'
+        ))
+
+        self.assertTrue(user)
+
+    def test_can_sell_method(self):
+        item = User(username='qwers', email_address='ethan@gmail.com', password_hash='772245', items=['Phone']).can_sell(
+            Item(name='Phone', price=2000, barcode='234367', description='Model')
+        )
+    def test_item_repr_method(self):
+        item = Item(name='Phone', price=2000, barcode='234367', description='Model')
+
+        new_item = item.__repr__()
+
+        self.assertEqual(new_item, 'Item Phone')
+    
+    def test_item_buy_method(self):
+        user = User(id=1, username='qwers', email_address='ethan@gmail.com', password_hash='772245', budget=5000)
+
+        item = Item(name='Phone', price=2000, barcode='234367', description='Model', owner=1)
+
+        can_buy = item.buy(user)
+
+        db.session.commit()
+
+        self.assertIsNone(can_buy)
+
+    def test_item_sell_method(self):
+        user = User(id=1, username='qwers', email_address='ethan@gmail.com', password_hash='772245', budget=5000)
+
+        item = Item(name='Phone', price=2000, barcode='234367', description='Model', owner=1)
+
+        can_sell = item.sell(user)
+
+        db.session.commit()
+
+        self.assertIsNone(can_sell)
