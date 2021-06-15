@@ -26,4 +26,3 @@ class TestMarket(BaseTest):
             response = self.app.get('/market', follow_redirects=True)
             self.assertEqual(response.status_code, 200)
             self.assertIn(b'Please Login', response.data)
-
