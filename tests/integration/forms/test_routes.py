@@ -11,7 +11,7 @@ class TestRegister(BaseTest):
                 username='Ethan', email_address='qwers@gmail.com',
                 password1='python', password2='python'
             ), follow_redirects=True)
-            self.assertEqual(response.status_code, 700)
+            self.assertEqual(response.status_code, 200)
             self.assertIn(b'Account created successfully! You are now logged in as Ethan', response.data)
            
     def test_invalid_registeration(self):
