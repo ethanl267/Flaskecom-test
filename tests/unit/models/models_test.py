@@ -32,6 +32,7 @@ class TestModels(TestCase):
         self.assertEqual(budget, "1,200$")
 
     def test_password(self):
+          # test password getter method
         user = User(username='qwers', email_address='qwers@gmail.com', password_hash='testing', budget=3000).password_hash
 
         self.assertEqual(user, 'testing')
@@ -58,9 +59,15 @@ class TestModels(TestCase):
         self.assertTrue(user)
 
     def test_can_sell_method(self):
-        item = User(username='qwers', email_address='ethan@gmail.com', password_hash='772245', items=['Phone']).can_sell(
-            Item(name='Phone', price=2000, barcode='234367', description='Model')
-        )
+       user = User(id=1, username='tester', email_address='test@gmail.com', password_hash='testing', budget=5000)
+
+       item = Item(name='Phone', price=2000, barcode='testing', description='Model', owner=1)
+
+       can_sell = item.sell(user)
+
+       db.session.commit()
+
+       self.assertIsNone(can_sell)
     def test_item_repr_method(self):
         item = Item(name='Phone', price=2000, barcode='234367', description='Model')
 
